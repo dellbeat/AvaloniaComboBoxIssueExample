@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CommoBoxExample.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="400"
+        xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+        xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+        x:Class="CommoBoxExample.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        Title="ComboBoxExample">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ComboBox Items="{Binding Items}" Margin="6" SelectedItem="{Binding SelectedItemText}" HorizontalAlignment="Center">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="SelectionChanged">
+                    <ia:InvokeCommandAction Command="{Binding SelectionChangedCommand}"></ia:InvokeCommandAction>
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </ComboBox>
+        <TextBlock Text="{Binding ShowedLabelText}" Height="30" Grid.Row="1" HorizontalAlignment="Center" Margin="6"></TextBlock>
+    </Grid>
+
+</Window>
